@@ -18,3 +18,17 @@
 @property (nonatomic, strong) UIColor *color;
 
 @end
+
+@protocol SIWebViewProgressDelegate;
+
+@interface SIWebViewProress : NSObject<UIWebViewDelegate>
+@property (nonatomic, readonly) NSProgress *currentProgress; // 0.0...1.0
+@property (nonatomic, weak) id<SIWebViewProgressDelegate> progressDelegate;
+@property (nonatomic, weak) id<UIWebViewDelegate> webViewProxyDelegate;
+
+@end
+
+@protocol SIWebViewProgressDelegate <NSObject>
+@optional
+- (void)updateProgress:(NSProgress *)progress webViewProgress:(SIWebViewProress *)webViewProgress;
+@end
