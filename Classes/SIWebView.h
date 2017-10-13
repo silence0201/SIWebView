@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, SIWebViewNavigationType) {
 
 @interface SIWebView : UIView
 
+@property (nonatomic, weak) id<SIWebViewDelegate> delegate;
+
 @property (nonatomic, readonly, copy) NSURL *URL;
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly) NSProgress *estimatedProgress;
@@ -58,7 +60,6 @@ typedef NS_ENUM(NSInteger, SIWebViewNavigationType) {
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL;
 - (void)loadRequest:(NSURLRequest *)request;
 - (void)loadUrl:(NSString *)url;
-- (void)loadData:(NSData *)data MIMEType:(NSString *)MIMEType textEncodingName:(NSString *)textEncodingName baseURL:(NSURL *)baseURL;
 
 - (void)invokeJavaScript:(NSString *)function;
 - (void)invokeJavaScript:(NSString *)function completionHandler:(void (^)(id, NSError * error))completionHandler;

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Silence. All rights reserved.
 //
 
-#import "SIWebProgressView.h"
+#import "SIWebProgress.h"
 
 static  NSString *completeURL = @"webviewprogressproxy:///complete";
 const float InitialProgressValue = 0.1f;

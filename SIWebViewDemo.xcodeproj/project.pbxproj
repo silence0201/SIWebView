@@ -14,7 +14,7 @@
 		E8912AA51F8D069300F8226F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8912AA31F8D069300F8226F /* LaunchScreen.storyboard */; };
 		E8912AA81F8D069300F8226F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AA71F8D069300F8226F /* main.m */; };
 		E8912AB11F8D071A00F8226F /* SIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AB01F8D071A00F8226F /* SIWebView.m */; };
-		E8912AB41F8D075800F8226F /* SIWebProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AB31F8D075800F8226F /* SIWebProgressView.m */; };
+		E8912AB41F8D075800F8226F /* SIWebProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AB31F8D075800F8226F /* SIWebProgress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		E8912AA71F8D069300F8226F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E8912AAF1F8D071A00F8226F /* SIWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIWebView.h; sourceTree = "<group>"; };
 		E8912AB01F8D071A00F8226F /* SIWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIWebView.m; sourceTree = "<group>"; };
-		E8912AB21F8D075800F8226F /* SIWebProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIWebProgressView.h; sourceTree = "<group>"; };
-		E8912AB31F8D075800F8226F /* SIWebProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIWebProgressView.m; sourceTree = "<group>"; };
+		E8912AB21F8D075800F8226F /* SIWebProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIWebProgress.h; sourceTree = "<group>"; };
+		E8912AB31F8D075800F8226F /* SIWebProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIWebProgress.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 			children = (
 				E8912AAF1F8D071A00F8226F /* SIWebView.h */,
 				E8912AB01F8D071A00F8226F /* SIWebView.m */,
-				E8912AB21F8D075800F8226F /* SIWebProgressView.h */,
-				E8912AB31F8D075800F8226F /* SIWebProgressView.m */,
+				E8912AB21F8D075800F8226F /* SIWebProgress.h */,
+				E8912AB31F8D075800F8226F /* SIWebProgress.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -164,7 +164,7 @@
 				E8912AA81F8D069300F8226F /* main.m in Sources */,
 				E8912A9A1F8D069300F8226F /* AppDelegate.m in Sources */,
 				E8912AB11F8D071A00F8226F /* SIWebView.m in Sources */,
-				E8912AB41F8D075800F8226F /* SIWebProgressView.m in Sources */,
+				E8912AB41F8D075800F8226F /* SIWebProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
