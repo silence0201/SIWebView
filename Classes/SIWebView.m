@@ -10,14 +10,17 @@
 #import "SIWebProgress.h"
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+#import <WebViewJavascriptBridge/WebViewJavascriptBridge.h>
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
 @interface SIWebView ()<UIWebViewDelegate,SIWebViewProgressDelegate,WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
 @property (nonatomic, strong) JSContext *context;
+@property (nonatomic, strong) WebViewJavascriptBridge* javascriptBridge;
 @property (nonatomic, strong) SIWebViewProress *progessProxy;
 @property (nonatomic, strong) NSProgress *estimatedProgress;
 #else
 @interface SIWebView()<SIWebViewProgressDelegate,UIWebViewDelegate,CHWebViewProgressDelegate>
 @property (nonatomic, strong) JSContext *context;
+@property (nonatomic, strong) WebViewJavascriptBridge* javascriptBridge;
 #endif
 @end
 
@@ -84,7 +87,7 @@
 }
 
 - (void)invokeJavaScript:(NSString *)function completionHandler:(void (^)(id, NSError *))completionHandler {
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *webView = (WKWebView *)_webView;
         [webView evaluateJavaScript:function completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             if (completionHandler) {
@@ -110,7 +113,7 @@
 
 #pragma mark -- 常用方法
 - (BOOL)canGoBack{
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *wk = (WKWebView *)_webView;
         return wk.canGoBack;
     }else{
@@ -119,7 +122,7 @@
     }
 }
 - (BOOL)canGoForward{
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *wk = (WKWebView *)_webView;
         return wk.canGoForward;
     }else{
@@ -163,6 +166,10 @@
     [self layout];
 }
 
+- (BOOL)isWKWebView {
+    return [_webView isKindOfClass:[WKWebView class]];
+}
+
 - (void)layout {
     [_webView setTranslatesAutoresizingMaskIntoConstraints:YES];
     
@@ -176,8 +183,9 @@
 }
 
 -(void)updateWebView {
-    if ([_webView isKindOfClass:[WKWebView class]]) {
-        WKWebView *webView = (WKWebView *)_webView;NSProgress *progress = [NSProgress progressWithTotalUnitCount:100];
+    if ([self isWKWebView]) {
+        WKWebView *webView = (WKWebView *)_webView;
+        NSProgress *progress = [NSProgress progressWithTotalUnitCount:100];
         [progress setCompletedUnitCount:webView.estimatedProgress];
         if ([self.delegate respondsToSelector:@selector(webView:updateProgress:)]) {
             [self.delegate webView:self updateProgress:progress];
@@ -244,7 +252,7 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     WKWebView *web = (WKWebView *)_webView;
-    web.configuration.userContentController = [[WKUserContentController alloc] init];
+    webView.configuration.userContentController = [[WKUserContentController alloc] init];
     // 注册js脚本
     if ([self.delegate respondsToSelector:@selector(registerJavascriptName)]) {
         [[self.delegate registerJavascriptName] enumerateObjectsUsingBlock:^(NSString * _Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -333,7 +341,7 @@
 }
 
 - (NSString *)title {
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *webView = (WKWebView *)_webView;
         return webView.title;
     }else {
@@ -343,7 +351,7 @@
 }
 
 - (NSURL *)URL {
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *webView = (WKWebView *)_webView;
         return webView.URL;
     }else {
@@ -353,7 +361,7 @@
 }
 
 - (NSProgress *)estimatedProgress {
-    if ([_webView isKindOfClass:[WKWebView class]]) {
+    if ([self isWKWebView]) {
         WKWebView *webView = (WKWebView *)_webView;
         NSProgress *progress = [NSProgress progressWithTotalUnitCount:100];
         [progress setCompletedUnitCount:webView.estimatedProgress*100];
@@ -386,6 +394,46 @@
         [self performSelectorOnMainThread:@selector(updateWebView) withObject:nil waitUntilDone:NO];
     }else {
         [self updateWebView];
+    }
+}
+
+#pragma mark -- 支持WebViewJavascriptBridge相关函数
+- (void)initializeJavascriptBridge {
+    [self initializeJavascriptBridge:NO];
+}
+
+
+- (void)initializeJavascriptBridge:(BOOL)enableLogging {
+    if (enableLogging) {
+        [WebViewJavascriptBridge enableLogging];
+    }
+    self.javascriptBridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    [self.javascriptBridge setWebViewDelegate:self];
+}
+
+- (void)registerHandler:(NSString *)handlerName handler:(SIJBHandler)handler {
+    if (self.javascriptBridge) {
+        [self.javascriptBridge registerHandler:handlerName handler:handler];
+    }
+}
+
+- (void)removeHandler:(NSString *)handlerName {
+    if (self.javascriptBridge) {
+        [self.javascriptBridge removeHandler:handlerName];
+    }
+}
+
+-(void)callHandler:(NSString *)handlerName {
+    [self callHandler:handlerName data:nil responseCallback:nil];
+}
+
+- (void)callHandler:(NSString *)handlerName data:(id)data {
+    [self callHandler:handlerName data:data responseCallback:nil];
+}
+
+- (void)callHandler:(NSString *)handlerName data:(id)data responseCallback:(SIJBResponseCallback)responseCallback {
+    if (self.javascriptBridge) {
+        [self.javascriptBridge callHandler:handlerName data:data responseCallback:responseCallback];
     }
 }
 

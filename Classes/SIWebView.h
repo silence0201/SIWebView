@@ -20,6 +20,9 @@ typedef NS_ENUM(NSInteger, SIWebViewNavigationType) {
     SIWebViewNavigationTypeOther
 };
 
+typedef void (^SIJBResponseCallback)(id responseData);
+typedef void (^SIJBHandler)(id data, SIJBResponseCallback responseCallback);
+
 @class SIWebView;
 @protocol SIWebViewDelegate <NSObject>
 
@@ -64,9 +67,23 @@ typedef NS_ENUM(NSInteger, SIWebViewNavigationType) {
 - (void)invokeJavaScript:(NSString *)function;
 - (void)invokeJavaScript:(NSString *)function completionHandler:(void (^)(id, NSError * error))completionHandler;
 
+- (BOOL)canGoBack;
+- (BOOL)canGoForward;
 - (void)reload;
 - (void)stopLoading;
 - (void)goBack;
 - (void)goForward;
+
+//// 支持WebViewJavascriptBridge相关函数
+- (void)initializeJavascriptBridge;
+- (void)initializeJavascriptBridge:(BOOL)enableLogging;
+
+- (void)registerHandler:(NSString *)handlerName handler:(SIJBHandler)handler;
+- (void)removeHandler:(NSString *)handlerName;
+
+- (void)callHandler:(NSString *)handlerName;
+- (void)callHandler:(NSString *)handlerName data:(id)data;
+- (void)callHandler:(NSString *)handlerName data:(id)data responseCallback:(SIJBResponseCallback)responseCallback;
+
 
 @end

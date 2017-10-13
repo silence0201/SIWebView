@@ -15,9 +15,12 @@
 		E8912AA81F8D069300F8226F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AA71F8D069300F8226F /* main.m */; };
 		E8912AB11F8D071A00F8226F /* SIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AB01F8D071A00F8226F /* SIWebView.m */; };
 		E8912AB41F8D075800F8226F /* SIWebProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E8912AB31F8D075800F8226F /* SIWebProgress.m */; };
+		EEA9B398E45A9D0BBD800D66 /* libPods-SIWebViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61363D18DD7A3AEC09CB1FDC /* libPods-SIWebViewDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A35652BCC48EF56D5F9DD2B /* Pods-SIWebViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIWebViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIWebViewDemo/Pods-SIWebViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		61363D18DD7A3AEC09CB1FDC /* libPods-SIWebViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SIWebViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8912A951F8D069300F8226F /* SIWebViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIWebViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8912A981F8D069300F8226F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E8912A991F8D069300F8226F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		E8912AB01F8D071A00F8226F /* SIWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIWebView.m; sourceTree = "<group>"; };
 		E8912AB21F8D075800F8226F /* SIWebProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIWebProgress.h; sourceTree = "<group>"; };
 		E8912AB31F8D075800F8226F /* SIWebProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIWebProgress.m; sourceTree = "<group>"; };
+		F1BBEE550562CF774758F10B /* Pods-SIWebViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIWebViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SIWebViewDemo/Pods-SIWebViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEA9B398E45A9D0BBD800D66 /* libPods-SIWebViewDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29E34E2B54F0DFF6F8C7CEA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				61363D18DD7A3AEC09CB1FDC /* libPods-SIWebViewDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E53BE275050ABA36AB06E2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A35652BCC48EF56D5F9DD2B /* Pods-SIWebViewDemo.debug.xcconfig */,
+				F1BBEE550562CF774758F10B /* Pods-SIWebViewDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E8912A8C1F8D069300F8226F = {
 			isa = PBXGroup;
 			children = (
 				E8912A971F8D069300F8226F /* SIWebViewDemo */,
 				E8912A961F8D069300F8226F /* Products */,
+				4E53BE275050ABA36AB06E2C /* Pods */,
+				29E34E2B54F0DFF6F8C7CEA3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,9 +120,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E8912AAB1F8D069300F8226F /* Build configuration list for PBXNativeTarget "SIWebViewDemo" */;
 			buildPhases = (
+				02ECC2EC2D5F149AB790EF41 /* [CP] Check Pods Manifest.lock */,
 				E8912A911F8D069300F8226F /* Sources */,
 				E8912A921F8D069300F8226F /* Frameworks */,
 				E8912A931F8D069300F8226F /* Resources */,
+				A1E66BC4F1ED783274F61A2F /* [CP] Embed Pods Frameworks */,
+				EBCA848B6CC8918F9AF63AC6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -154,6 +181,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02ECC2EC2D5F149AB790EF41 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SIWebViewDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1E66BC4F1ED783274F61A2F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SIWebViewDemo/Pods-SIWebViewDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBCA848B6CC8918F9AF63AC6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SIWebViewDemo/Pods-SIWebViewDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E8912A911F8D069300F8226F /* Sources */ = {
@@ -296,6 +374,7 @@
 		};
 		E8912AAC1F8D069300F8226F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A35652BCC48EF56D5F9DD2B /* Pods-SIWebViewDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -309,6 +388,7 @@
 		};
 		E8912AAD1F8D069300F8226F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1BBEE550562CF774758F10B /* Pods-SIWebViewDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
