@@ -254,8 +254,9 @@
     WKWebView *web = (WKWebView *)_webView;
     webView.configuration.userContentController = [[WKUserContentController alloc] init];
     // 注册js脚本
-    if ([self.delegate respondsToSelector:@selector(registerJavascriptName)]) {
-        [[self.delegate registerJavascriptName] enumerateObjectsUsingBlock:^(NSString * _Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([self.delegate respondsToSelector:@selector(registerJavascript)]) {
+        NSDictionary *registerJavascript = [self.delegate registerJavascript];
+        [registerJavascript.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
             [web.configuration.userContentController removeScriptMessageHandlerForName:name];
             [web.configuration.userContentController addScriptMessageHandler:self name:name];
         }];
@@ -286,13 +287,18 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    if([self.delegate respondsToSelector:@selector(registerJavascriptName)]){
+    if([self.delegate respondsToSelector:@selector(registerJavascript)]){
         self.context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-        [[self.delegate registerJavascriptName] enumerateObjectsUsingBlock:^(NSString * _Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *registerJavascript = [self.delegate registerJavascript];
+        [registerJavascript.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
             __weak typeof(self) weakSelf = self;
             self.context[name] = ^(id body){
-                __strong typeof(weakSelf) strongSelf = weakSelf;
-                [strongSelf invokeIMPFunction:body name:name];
+                NSString *selName = [registerJavascript valueForKey:name];
+                if (selName) {
+                    __strong typeof(weakSelf) strongSelf = weakSelf;
+                    [strongSelf invokeIMPFunction:body name:registerJavascript[name]];
+                }
+
             };
         }];
     }

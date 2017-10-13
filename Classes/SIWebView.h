@@ -37,7 +37,10 @@ typedef void (^SIJBHandler)(id data, SIJBResponseCallback responseCallback);
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler;
 #endif
 
-- (NSArray <NSString *>*)registerJavascriptName;
+///------ JavaScriptCore需要实现的代理 ----------
+///>>>>>>  需要支持的函数名称,js函数名:OC方法名
+- (NSDictionary <NSString *,NSString *>*)registerJavascript;
+///>>>>>>  注册的对象
 - (NSObject *)registerJavaScriptHandler;
 
 @end
@@ -74,7 +77,7 @@ typedef void (^SIJBHandler)(id data, SIJBResponseCallback responseCallback);
 - (void)goBack;
 - (void)goForward;
 
-//// 支持WebViewJavascriptBridge相关函数
+///------ 支持WebViewJavascriptBridge相关函数 ----------
 - (void)initializeJavascriptBridge;
 - (void)initializeJavascriptBridge:(BOOL)enableLogging;
 
